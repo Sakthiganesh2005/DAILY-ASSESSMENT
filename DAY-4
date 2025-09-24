@@ -1,0 +1,33 @@
+def search(word,arr,i,j,row,col,index):
+    if i<0 or j<0 or i>=row or j>=col or word[index]!=arr[i][j]:
+        return False
+    if index==len(word)-1:
+        return True
+    temp=arr[i][j]
+    arr[i][j]='#'
+    dir=[[0,1],[0,-1],[-1,0],[1,0]]
+    for di,dj in dir:
+        ni=i+di
+        nj=j+dj
+        if(search(word,arr,ni,nj,row,col,index+1)):
+            f=True
+            arr[i][j]=temp
+            return f
+row = int(input("Enter no.of rows:"))
+col = int(input("Enter no.of cols:"))
+arr = []
+for i in range(row):
+    rows = list(map(str,input().split()))
+    arr.append(rows)
+index=0
+flag=False
+word=input("Enter word to be searched:")
+for i in range(row):
+    for j in range(col):
+        if arr[i][j]==word[index]:
+            if(search(word,arr,i,j,row,col,index)):
+                flag=True
+                break
+    if flag:
+        break
+print(flag)
